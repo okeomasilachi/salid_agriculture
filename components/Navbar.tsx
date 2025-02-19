@@ -19,11 +19,10 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const isActiveUrl = (href: string) => {
-  const currentPath = window.location.pathname + window.location.hash;
-  console.log(currentPath);
+  const currentPath =
+    typeof window !== "undefined" &&
+    window.location.pathname + window.location.hash;
   const hrefPath = href.startsWith("/") ? href : "/" + href;
-  console.log(currentPath);
-  console.log(currentPath === hrefPath);
   return currentPath === hrefPath;
 };
 
