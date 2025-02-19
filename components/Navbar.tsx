@@ -17,18 +17,17 @@ import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
-const isActiveUrl = (href: string) => {
-  const currentPath =
-    typeof window !== "undefined" &&
-    window.location.pathname + window.location.hash;
-  const hrefPath = href.startsWith("/") ? href : "/" + href;
-  return currentPath === hrefPath;
+export const IsActiveUrl = (href: string) => {
+  const pathname = usePathname();
+  return pathname === href;
 };
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   console.log(isMobileMenuOpen);
+
   const navItems = [
     { label: "About Us", href: "/#about" },
     { label: "Products", href: "/#products" },
@@ -81,7 +80,9 @@ const Navbar = () => {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>Discover</NavigationMenuTrigger>
+                  <NavigationMenuTrigger>
+                    Discover
+                  </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                       <li className="row-span-3">
@@ -109,7 +110,7 @@ const Navbar = () => {
                       <ListItem
                         className="text-gray-700 hover:text-gray-900 hover:bg-green-50"
                         href="/#about"
-                        active={isActiveUrl("#about")}
+                        active={IsActiveUrl("/#about")}
                         title="About Us"
                       >
                         we are dedicated to transforming agriculture with
@@ -117,7 +118,7 @@ const Navbar = () => {
                       </ListItem>
                       <ListItem
                         className="text-gray-700 hover:text-gray-900 hover:bg-green-50"
-                        active={isActiveUrl("#quality")}
+                        active={IsActiveUrl("/#quality")}
                         href="/#quality"
                         title="Quality Control"
                       >
@@ -126,7 +127,7 @@ const Navbar = () => {
                       <ListItem
                         className="text-gray-700 hover:text-gray-900 hover:bg-green-50"
                         href="/#team"
-                        active={isActiveUrl("#team")}
+                        active={IsActiveUrl("/#team")}
                         title="Team"
                       >
                         Every step of our process is carefully monitored to
@@ -137,7 +138,7 @@ const Navbar = () => {
                 </NavigationMenuItem>
                 {navItems.slice(4).map((item) => (
                   <NavigationMenuItem key={item.label}>
-                    <ListItem active={isActiveUrl(item.href)} href={item.href}>
+                    <ListItem active={IsActiveUrl(item.href)} href={item.href}>
                       {item.label}
                     </ListItem>
                   </NavigationMenuItem>
@@ -157,14 +158,15 @@ const Navbar = () => {
               <SheetContent side="right" className="w-64">
                 <div className="flex flex-col space-y-4 mt-8">
                   {navItems.map((item) => (
-                    <a
+                    <ListItem
                       key={item.label}
                       href={item.href}
+                      active={IsActiveUrl(item.href)}
                       className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {item.label}
-                    </a>
+                    </ListItem>
                   ))}
                 </div>
               </SheetContent>
@@ -189,6 +191,7 @@ const ListItem = React.forwardRef<
           ref={ref}
           className={cn(
             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-3 py-2 text-sm font-medium text-gray-700 hover:text-black hover:bg-green-50",
+            active && "text-black bg-green-50",
             className
           )}
           {...props}
