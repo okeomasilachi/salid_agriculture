@@ -185,7 +185,7 @@ const ListItem = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof Link> & { active?: boolean }
 >(({ className, title, children, active, ...props }, ref) => {
   return (
-    <li className="relative">
+    <div className="relative">
       <NavigationMenuLink asChild>
         <Link
           ref={ref}
@@ -196,19 +196,21 @@ const ListItem = React.forwardRef<
           )}
           {...props}
         >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          <p className="text-sm font-medium leading-none">{title}</p>
+          <p className="line-clamp-2 my-1 text-sm leading-snug text-muted-foreground">
             {children}
-            <div
-              className={cn(
-                "absolute bottom-0 left-0 h-0.5 w-full scale-x-0 transition-transform duration-300 bg-green-600",
-                active && "scale-x-100"
-              )}
-            />
           </p>
         </Link>
       </NavigationMenuLink>
-    </li>
+
+      {/* Moved the article tag outside Link */}
+      <article
+        className={cn(
+          "absolute bottom-0 left-0 h-0.5 w-full scale-x-0 transition-transform duration-300 bg-green-600",
+          active && "scale-x-100"
+        )}
+      />
+    </div>
   );
 });
 ListItem.displayName = "ListItem";
