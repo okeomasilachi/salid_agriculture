@@ -9,6 +9,9 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import { MdLocationOn, MdPhone, MdEmail, MdAccessTime } from "react-icons/md";
+import { Button } from "./ui/button";
+import Link from "next/link";
+import { Input } from "./ui/input";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -22,31 +25,30 @@ const Footer = () => {
 
   return (
     <footer className="bg-[#2C5530] text-white">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Quick Links Section */}
           <div>
             <h3 className="text-xl font-bold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               {[
-                "About Us",
-                "Products",
-                "Quality Control",
-                "Team",
-                "Latest News",
-                "Contact Us",
-                "Careers",
-                "FAQs",
-                "Privacy Policy",
-                "Terms of Service",
+                { label: "About Us", link: "/about" },
+                { label: "Products", link: "/#products" },
+                { label: "Quality Control", link: "/#quality" },
+                { label: "Team", link: "/#team" },
+                { label: "Latest News", link: "/blog" },
+                { label: "Contact Us", link: "/contact" },
+                { label: "Careers", link: "/career" },
+                { label: "Privacy Policy", link: "/privacy-policy" },
+                { label: "Terms of Service", link: "/terms-of-service" },
               ].map((link) => (
-                <li key={link}>
-                  <a
-                    href="#"
+                <li key={link.label}>
+                  <Link
+                    href={link.link}
                     className="hover:text-green-300 transition-colors"
                   >
-                    {link}
-                  </a>
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -84,14 +86,14 @@ const Footer = () => {
               Get the latest news, tips, and updates delivered to your inbox.
             </p>
             <form onSubmit={handleSubscribe} className="space-y-3">
-              <input
+              <Input
                 type="text"
                 placeholder="Your Name"
                 className="w-full px-3 py-2 rounded text-gray-800"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
-              <input
+              <Input
                 type="email"
                 placeholder="Your Email"
                 required
@@ -99,12 +101,13 @@ const Footer = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <button
+              <Button
+                size="lg"
                 type="submit"
-                className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded transition-colors"
+                className="transition-colors w-full"
               >
                 Subscribe
-              </button>
+              </Button>
             </form>
           </div>
 
@@ -114,13 +117,13 @@ const Footer = () => {
             <div className="flex gap-4 mb-6">
               {[FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaYoutube].map(
                 (Icon, index) => (
-                  <a
+                  <Link
                     key={index}
                     href="#"
                     className="text-2xl hover:text-green-300 transition-colors"
                   >
                     <Icon />
-                  </a>
+                  </Link>
                 )
               )}
             </div>
@@ -132,18 +135,18 @@ const Footer = () => {
           <p className="mb-2">
             © {new Date().getFullYear()} Salid Agriculture. All rights reserved.
           </p>
-          <div className="flex justify-center gap-4 text-sm">
-            <a href="#" className="hover:text-green-300 transition-colors">
+          <div className="flex flex-col md:flex-row justify-center gap-4 text-sm">
+            <Link href="#" className="hover:text-green-300 transition-colors">
               Privacy Policy
-            </a>
-            <span>|</span>
-            <a href="#" className="hover:text-green-300 transition-colors">
+            </Link>
+            <span className="hidden md:inline-block">|</span>
+            <Link href="#" className="hover:text-green-300 transition-colors">
               Terms of Service
-            </a>
-            <span>|</span>
-            <a href="#" className="hover:text-green-300 transition-colors">
+            </Link>
+            <span className="hidden md:inline-block">|</span>
+            <Link href="#" className="hover:text-green-300 transition-colors">
               Cookie Policy
-            </a>
+            </Link>
           </div>
         </div>
       </div>

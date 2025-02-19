@@ -31,13 +31,14 @@ export default function CareerPage() {
   const [activeFilter, setActiveFilter] = useState("all");
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <section className="relative h-[600px]">
         <Image
-          src="/hero-image.jpg"
+          src="https://images.unsplash.com/photo-1495908333425-29a1e0918c5f?q=80&w=1180&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Team working on farm"
           fill
+          priority
           className="object-cover"
         />
         <div className="absolute inset-0 bg-black/50">
@@ -57,7 +58,7 @@ export default function CareerPage() {
       </section>
 
       {/* Why Join Us Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 container">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12">Why Join Us?</h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -84,7 +85,7 @@ export default function CareerPage() {
       </section>
 
       {/* Open Positions Section */}
-      <section className="py-20">
+      <section className="py-20 container">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12">
             Open Positions
@@ -131,7 +132,7 @@ export default function CareerPage() {
       </section>
 
       {/* Employee Testimonials Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 container">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12">
             Hear from Our Team
