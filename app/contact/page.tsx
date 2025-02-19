@@ -29,7 +29,7 @@ export default function ContactPage() {
         <div className="absolute inset-0 bg-black/50">
           <div className="container mx-auto px-4 h-full flex flex-col justify-center text-white">
             <h1 className="text-5xl font-bold mb-4 text-center">Get in Touch</h1>
-            <p className="text-xl text-center max-w-2xl">
+            <p className="text-xl text-center mx-auto max-w-2xl">
               We&apos;d love to hear from you! Reach out for inquiries, partnerships,
               or feedback.
             </p>
