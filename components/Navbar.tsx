@@ -19,7 +19,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
-const IsActiveUrl = (href: string) => {
+export const IsActiveUrl = (href: string) => {
   const pathname = usePathname();
   return pathname === href;
 };
@@ -80,7 +80,9 @@ const Navbar = () => {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>Discover</NavigationMenuTrigger>
+                  <NavigationMenuTrigger>
+                    Discover
+                  </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                       <li className="row-span-3">
@@ -102,12 +104,6 @@ const Navbar = () => {
                               Sustainably grow and provide high-quality produce
                               while supporting local communities.
                             </p>
-                            <div
-                              className={cn(
-                                "absolute bottom-0 left-0 h-0.5 w-full scale-x-0 transition-transform duration-300 bg-green-600",
-                                IsActiveUrl("/") && "scale-x-100"
-                              )}
-                            />
                           </Link>
                         </NavigationMenuLink>
                       </li>
