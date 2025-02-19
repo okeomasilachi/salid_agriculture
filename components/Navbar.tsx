@@ -158,15 +158,21 @@ const Navbar = () => {
               <SheetContent side="right" className="w-64">
                 <div className="flex flex-col space-y-4 mt-8">
                   {navItems.map((item) => (
-                    <ListItem
+                    <Link
                       key={item.label}
                       href={item.href}
-                      active={IsActiveUrl(item.href)}
-                      className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md"
+                      className=`px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md`
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {item.label}
-                    </ListItem>
+                  <article
+        className={cn(
+          "absolute bottom-0 left-0 h-0.5 w-full scale-x-0 transition-transform duration-300 bg-green-600",
+          IsActiveUrl(item.href) && "scale-x-100"
+        )}
+      />
+                    </Link>
+
                   ))}
                 </div>
               </SheetContent>
