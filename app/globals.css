@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 body {
+  scroll-behavior: smooth;
   font-family: var(--font-montserrat), Arial, Helvetica, sans-serif;
 }
 
