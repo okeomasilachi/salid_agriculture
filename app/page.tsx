@@ -1,3 +1,18 @@
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Button, buttonVariants } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -21,9 +36,9 @@ const HomePage = () => {
       </section>
 
       {/* Main Content */}
-      <main className="px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+      <main className="container py-12 space-y-20">
         {/* About Us */}
-        <section id="about" className="container py-10">
+        <section id="about" className="py-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -40,15 +55,19 @@ const HomePage = () => {
                 produce while supporting local communities and promoting
                 environmental stewardship.
               </p>
-              <Link href="/about">
-                <button className="mt-6 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none">
-                  Learn More About Our Story
-                </button>
+              <Link
+                href="/about"
+                className={`${buttonVariants({
+                  variant: "default",
+                  size: "lg",
+                })} mt-6`}
+              >
+                Learn More About Our Story
               </Link>
             </div>
-            <div className="relative rounded-lg overflow-hidden shadow">
+            <div className="relative overflow-hidden">
               <Image
-                src="https://th.bing.com/th/id/R.2bc9986f96ecf484d6e4bb53a9b27964?rik=JgYs5SGXf1zKJA&pid=ImgRaw&r=0"
+                src="/logo.png"
                 alt="Farmers working"
                 width={500}
                 height={300}
@@ -59,7 +78,7 @@ const HomePage = () => {
         </section>
 
         {/* Products */}
-        <section id="products" className="container my-10 py-10">
+        <section id="products" className="py-10">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
               Our Products
@@ -67,31 +86,6 @@ const HomePage = () => {
             <p className="text-xl text-gray-600">
               Fresh from the Farm to Your Table
             </p>
-          </div>
-
-          <div className="mb-8">
-            <div className="relative max-w-xl mx-auto">
-              <input
-                type="search"
-                className="w-full p-4 pl-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
-                placeholder="Search products..."
-              />
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg
-                  className="h-5 w-5 text-gray-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </div>
-            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -118,35 +112,35 @@ const HomePage = () => {
                   "https://images.unsplash.com/photo-1586201375761-83865001e31c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
               },
             ].map((product, index) => (
-              <div
+              <Card
                 key={index}
-                className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105"
+                className="flex flex-col h-[400px] transition-transform duration-300 hover:scale-110"
               >
-                <div className="relative h-48">
+                <CardHeader className="relative h-48 p-0 pb-4">
                   <Image
                     src={product.image}
                     alt={product.title}
                     layout="fill"
                     objectFit="cover"
-                    className="transition-transform duration-300 hover:scale-110"
+                    className="rounded-t-lg "
                   />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    {product.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4">{product.description}</p>
-                  <button className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300">
+                </CardHeader>
+                <CardContent className="flex-1 mt-5">
+                  <CardTitle className="mb-2">{product.title}</CardTitle>
+                  <p className="line-clamp-3">{product.description}</p>
+                </CardContent>
+                <CardFooter className="mt-auto">
+                  <Button size="lg" className="w-full transition duration-300">
                     View Details
-                  </button>
-                </div>
-              </div>
+                  </Button>
+                </CardFooter>
+              </Card>
             ))}
           </div>
         </section>
 
         {/* Quality Control */}
-        <section id="quality" className="container my-10 py-10">
+        <section id="quality" className="py-10">
           <div className="relative rounded-xl overflow-hidden mb-12">
             <div className="absolute inset-0">
               <Image
@@ -209,51 +203,100 @@ const HomePage = () => {
           </div>
 
           <div className="text-center mt-12">
-            <button className="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 transition duration-300">
+            <Button size="lg" className="transition duration-300">
               Learn More About Our Standards
-            </button>
+            </Button>
+          </div>
+        </section>
+
+        {/* What Our Partners Say */}
+        <section id="partners" className="py-10">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              What Our Partners Say
+            </h2>
+            <p className="text-xl text-gray-600">
+              Hear from our valued partners about their experiences working with
+              us
+            </p>
           </div>
 
-          <div className="mt-16 bg-gray-50 rounded-xl p-8">
-            <h3 className="text-2xl font-bold text-center mb-8">
-              What Our Partners Say
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {[
-                {
-                  quote:
-                    "The quality of produce from Salid Agriculture is consistently exceptional.",
-                  author: "John Doe",
-                  role: "CEO, Global Foods",
-                },
-                {
-                  quote:
-                    "Their commitment to quality control is unmatched in the industry.",
-                  author: "Jane Smith",
-                  role: "Director, AgriTech Solutions",
-                },
-              ].map((testimonial, index) => (
-                <blockquote
-                  key={index}
-                  className="bg-white p-6 rounded-lg shadow"
-                >
-                  <p className="text-gray-600 italic mb-4">
-                    {testimonial.quote}
-                  </p>
-                  <footer>
-                    <strong className="text-gray-900">
-                      {testimonial.author}
-                    </strong>
-                    <p className="text-gray-500 text-sm">{testimonial.role}</p>
-                  </footer>
-                </blockquote>
-              ))}
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {[
+              {
+                name: "John Doe",
+                role: "CEO, Green Farms Co.",
+                image:
+                  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e",
+                quote:
+                  "Working with Salid Agriculture has transformed our farming operations. Their commitment to sustainability is unmatched.",
+                rating: 5,
+              },
+              {
+                name: "Sarah Wilson",
+                role: "Director, Agro Alliance",
+                image:
+                  "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e",
+                quote:
+                  "The quality of their products and technical support has helped us achieve remarkable growth.",
+                rating: 5,
+              },
+              {
+                name: "Michael Chen",
+                role: "Operations Manager, Global Harvest",
+                image:
+                  "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7",
+                quote:
+                  "A reliable partner that consistently delivers excellence in agricultural solutions.",
+                rating: 5,
+              },
+            ].map((testimonial, index) => (
+              <Card
+                key={index}
+                className="text-center p-6 hover:shadow-xl transition-shadow"
+              >
+                <div className="mb-4 relative w-24 h-24 mx-auto">
+                  <Image
+                    src={testimonial.image}
+                    alt={testimonial.name}
+                    layout="fill"
+                    className="rounded-full object-cover"
+                  />
+                </div>
+                <div className="flex justify-center mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <svg
+                      key={i}
+                      className="w-5 h-5 text-yellow-400"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-gray-600 italic mb-4">
+                &quot;{testimonial.quote}&quot;
+                </p>
+                <h3 className="font-semibold text-lg">{testimonial.name}</h3>
+                <p className="text-green-600">{testimonial.role}</p>
+              </Card>
+            ))}
+          </div>
+
+          <div className="text-center bg-green-50 rounded-xl p-12">
+            <h3 className="text-2xl font-bold mb-4">Become a Partner</h3>
+            <p className="text-gray-600 mb-8">
+              Partner with us to grow your business and make a positive impact
+            </p>
+            <Button size="lg" className="bg-green-600 hover:bg-green-700">
+              Contact Us
+            </Button>
           </div>
         </section>
 
         {/* Team */}
-        <section id="team" className="container py-16 my-10">
+        <section id="team" className="py-10">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
               Meet Our Team
@@ -327,27 +370,31 @@ const HomePage = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Link href="/career">
-              <button className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-green-600 hover:bg-green-700 transition duration-300">
-                Join Our Team
-                <svg
-                  className="ml-2 -mr-1 w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
+            <Link
+              href="/career"
+              className={`${buttonVariants({
+                variant: "default",
+                size: "lg",
+              })}`}
+            >
+              Join Our Team
+              <svg
+                className="ml-2 -mr-1 w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
             </Link>
           </div>
         </section>
 
         {/* Latest News */}
-        <section id="news" className="container my-10 py-10">
+        <section id="news" className="py-10">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
               Latest News
@@ -378,13 +425,14 @@ const HomePage = () => {
                   Discover how we&apos;re leading the way in sustainable
                   agriculture.
                 </p>
-                <Link href="/blog">
-                  <button
-                    className="bg-white text-green-600 px-6 py-2 rounded-lg font-medium 
-            hover:bg-green-600 hover:text-white transition duration-300"
-                  >
-                    Learn More
-                  </button>
+                <Link
+                  href="/blog"
+                  className={`${buttonVariants({
+                    variant: "default",
+                    size: "lg",
+                  })}`}
+                >
+                  Learn More
                 </Link>
               </div>
             </div>
@@ -420,9 +468,9 @@ const HomePage = () => {
               <div
                 key={index}
                 className="bg-white rounded-xl shadow-lg overflow-hidden 
-          transform transition duration-300 hover:-translate-y-2"
+                transform transition duration-300 hover:-translate-y-2 flex flex-col h-[500px]"
               >
-                <div className="relative h-48">
+                <div className="relative h-48 flex-shrink-0">
                   <Image
                     src={news.image}
                     alt={news.title}
@@ -431,17 +479,25 @@ const HomePage = () => {
                     className="transition-transform duration-300 hover:scale-110"
                   />
                 </div>
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-1">
+                  <div className="flex-1"></div>
                   <span className="text-sm text-green-600 font-medium">
                     {news.date}
                   </span>
                   <h3 className="text-xl font-semibold text-gray-900 mt-2">
                     {news.title}
                   </h3>
-                  <p className="mt-2 text-gray-600">{news.excerpt}</p>
-                  <button
-                    className="mt-4 text-green-600 hover:text-green-800 font-medium 
-              inline-flex items-center"
+                  <p className="mt-2 text-gray-600 line-clamp-3">
+                    {news.excerpt}
+                  </p>
+                </div>
+                <div className="mt-4  mb-4 p-6">
+                  <Link
+                    href="/blog"
+                    className={`${buttonVariants({
+                      variant: "default",
+                      size: "lg",
+                    })} w-full`}
                   >
                     Read more
                     <svg
@@ -457,24 +513,115 @@ const HomePage = () => {
                         d="M9 5l7 7-7 7"
                       />
                     </svg>
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}
           </div>
 
           <div className="text-center mt-12">
-            <button
-              className="bg-green-600 text-white px-8 py-3 rounded-lg 
-              hover:bg-green-700 transition duration-300"
+            <Link
+              href="/blog"
+              className={`${buttonVariants({
+                variant: "secondary",
+                size: "lg",
+              })} transition duration-300 shadow-md hover:shadow-lg`}
             >
               View All News
-            </button>
+            </Link>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section id="faq" className="py-10">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-xl text-gray-600">
+              Find answers to common questions about our products, services, and
+              more.
+            </p>
+          </div>
+
+          <div className="mb-8">
+            <div className="relative max-w-xl mx-auto">
+              <Input
+                type="search"
+                className="w-full p-4 pl-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
+                placeholder="Search for answers..."
+              />
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg
+                  className="h-5 w-5 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+            {[
+              "General Questions",
+              "Products",
+              "Orders & Shipping",
+              "Sustainability",
+            ].map((category, index) => (
+              <Button
+                size="lg"
+                variant="secondary"
+                key={index}
+                className="shadow-md hover:shadow-lg transition-shadow duration-300 font-semibold"
+              >
+                {category}
+              </Button>
+            ))}
+          </div>
+
+          <div className="max-w-3xl mx-auto space-y-4">
+            <Accordion type="single" collapsible>
+              {[
+                {
+                  question: "How do I place an order?",
+                  answer:
+                    "You can place an order through our website or by contacting our sales team directly. We accept various payment methods and offer bulk ordering options.",
+                },
+                {
+                  question: "What payment methods do you accept?",
+                  answer:
+                    "We accept credit cards, PayPal, and bank transfers. For large orders, we also offer flexible payment plans.",
+                },
+                {
+                  question: "Do you offer international shipping?",
+                  answer:
+                    "Yes, we ship to over 50 countries worldwide. Shipping costs and delivery times vary by location.",
+                },
+                {
+                  question: "What is your quality control process?",
+                  answer:
+                    "Our products undergo rigorous quality control checks at every stage of production, from soil testing to final packaging.",
+                },
+              ].map((faq, index) => (
+                <AccordionItem value={faq.question} key={index}>
+                  <AccordionTrigger>{faq.question}</AccordionTrigger>
+                  <AccordionContent>{faq.answer}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </section>
 
         {/* Call to Action Section */}
-        <section className="relative py-10 my-10 rounded-xl conatiner">
+        <section className="relative py-10 rounded-xl">
           {/* Background Image with Overlay */}
           <div className="absolute inset-0 w-full rounded-xl">
             <Image
@@ -505,18 +652,18 @@ const HomePage = () => {
                 <form className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Email Input */}
-                    <input
+                    <Input
                       type="email"
                       placeholder="Enter your email"
                       className="w-full px-4 py-3 rounded-lg bg-white/80 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500"
                     />
                     {/* Subscribe Button */}
-                    <button
+                    <Button
                       type="submit"
-                      className="w-full bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300 shadow-lg hover:shadow-xl"
+                      className="w-full font-semibold transition duration-300 shadow-lg hover:shadow-xl"
                     >
                       Subscribe Now
-                    </button>
+                    </Button>
                   </div>
                 </form>
 

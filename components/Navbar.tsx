@@ -1,28 +1,42 @@
 "use client";
 
+import Link from "next/link";
+import * as React from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
+  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
+  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
-import { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { useEffect, useState } from "react";
+
+const isActiveUrl = (href: string) => {
+  const currentPath = window.location.pathname + window.location.hash;
+  console.log(currentPath);
+  const hrefPath = href.startsWith("/") ? href : "/" + href;
+  console.log(currentPath);
+  console.log(currentPath === hrefPath);
+  return currentPath === hrefPath;
+};
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   console.log(isMobileMenuOpen);
   const navItems = [
-    { label: "About Us", href: "#about" },
-    { label: "Products", href: "#products" },
-    { label: "Quality Control", href: "#quality" },
-    { label: "Team", href: "#team" },
-    { label: "Blog", href: "/blog" },
+    { label: "About Us", href: "/#about" },
+    { label: "Products", href: "/#products" },
+    { label: "Quality Control", href: "/#quality" },
+    { label: "Team", href: "/#team" },
     { label: "Career", href: "/career" },
+    { label: "Blog", href: "/blog" },
     { label: "Contact Us", href: "/contact" },
   ];
   const [isVisible, setIsVisible] = useState(true);
@@ -67,14 +81,66 @@ const Navbar = () => {
           <div className="hidden md:block">
             <NavigationMenu>
               <NavigationMenuList>
-                {navItems.map((item) => (
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>Discover</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                      <li className="row-span-3">
+                        <NavigationMenuLink asChild>
+                          <Link
+                            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md text-gray-700 hover:text-gray-900 hover:bg-green-50"
+                            href="/"
+                          >
+                            <Image
+                              src="/logo.png"
+                              alt="Logo"
+                              width={100}
+                              height={100}
+                            />
+                            <div className="mb-2 mt-4 text-lg font-medium">
+                              Salid Agriculture
+                            </div>
+                            <p className="text-sm leading-tight text-muted-foreground">
+                              Sustainably grow and provide high-quality produce
+                              while supporting local communities.
+                            </p>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                      <ListItem
+                        className="text-gray-700 hover:text-gray-900 hover:bg-green-50"
+                        href="/#about"
+                        active={isActiveUrl("#about")}
+                        title="About Us"
+                      >
+                        we are dedicated to transforming agriculture with
+                        cutting-edge practices and unparalleled quality
+                      </ListItem>
+                      <ListItem
+                        className="text-gray-700 hover:text-gray-900 hover:bg-green-50"
+                        active={isActiveUrl("#quality")}
+                        href="/#quality"
+                        title="Quality Control"
+                      >
+                        Fresh from the Farm to Your Table
+                      </ListItem>
+                      <ListItem
+                        className="text-gray-700 hover:text-gray-900 hover:bg-green-50"
+                        href="/#team"
+                        active={isActiveUrl("#team")}
+                        title="Team"
+                      >
+                        Every step of our process is carefully monitored to
+                        ensure the highest quality standards
+                      </ListItem>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+                {navItems.slice(4).map((item) => (
                   <NavigationMenuItem key={item.label}>
-                    <NavigationMenuLink
-                      href={item.href}
-                      className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md"
-                    >
+                    <ListItem active={isActiveUrl(item.href)} href={item.href}>
                       {item.label}
-                    </NavigationMenuLink>
+                    </ListItem>
                   </NavigationMenuItem>
                 ))}
               </NavigationMenuList>
@@ -112,3 +178,35 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+const ListItem = React.forwardRef<
+  React.ElementRef<typeof Link>,
+  React.ComponentPropsWithoutRef<typeof Link> & { active?: boolean }
+>(({ className, title, children, active, ...props }, ref) => {
+  return (
+    <li className="relative">
+      <NavigationMenuLink asChild>
+        <Link
+          ref={ref}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-3 py-2 text-sm font-medium text-gray-700 hover:text-black hover:bg-green-50",
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+            <div
+              className={cn(
+                "absolute bottom-0 left-0 h-0.5 w-full scale-x-0 transition-transform duration-300 bg-green-600",
+                active && "scale-x-100"
+              )}
+            />
+          </p>
+        </Link>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = "ListItem";

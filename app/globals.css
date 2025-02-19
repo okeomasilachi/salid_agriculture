@@ -72,5 +72,5 @@ body {
 }
 
 .container {
-  @apply mx-auto max-w-5xl;
+  @apply mx-auto px-2 md:max-w-4xl lg:max-w-5xl;
 }
